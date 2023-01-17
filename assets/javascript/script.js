@@ -37,8 +37,12 @@ $(function save () {
           message : currenttimeblockText
       }
       localStorage.setItem('schedule', JSON.stringify(userData))
+    
+      let dailyItem = localStorage.getItem("schedule")
+      let savedItem = JSON.parse(dailyItem);
 
       
+
 
       })
 
