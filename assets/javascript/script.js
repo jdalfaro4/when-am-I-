@@ -5,7 +5,21 @@
 var time = dayjs().format('H:mm:ss');
 $('#currentDay').text(`Current Time : ${time}`);
 
-$(function save () {
+function keepTime() {
+  let localStoragedata = JSON.parse(localStorage.getItem('schedule'))
+  console.log(localStoragedata)
+  if(localStoragedata !== null){
+    for(let i = 0; i < localStoragedata.length; i++) {
+      let target_textarea = document.getElementById(`hour-${localStoragedata[i].time}`).childNodes[3]
+      target_textarea.value = localStoragedata[i].message
+  
+    }
+  }
+
+}
+keepTime()
+
+function save () {
     let timeHours = [9, 10, 11, 12, 13, 14, 15, 16, 17]
     let currentHour = dayjs().format('H')
 
@@ -36,18 +50,20 @@ $(function save () {
           time : currentIndex,
           message : currenttimeblockText
       }
-      localStorage.setItem('schedule', JSON.stringify(userData))
-    
-      let dailyItem = localStorage.getItem("schedule")
-      let savedItem = JSON.parse(dailyItem);
+      let data = JSON.parse(localStorage.getItem('schedule'))
+      if(data === null){
+        data = []
+        data.push(userData)
+      } else{
+        data.push(userData)
+      }
 
-      
-
+      localStorage.setItem('schedule', JSON.stringify(data));
 
       })
 
-
     }
+
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -66,6 +82,7 @@ $(function save () {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the current date in the header of the page.
-  });
 
-// saveBtn.eventListener('click', save)
+  };
+  save()
+//  saveBtn.eventListener('click', save)
