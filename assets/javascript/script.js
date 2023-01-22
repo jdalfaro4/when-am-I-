@@ -7,12 +7,10 @@ $('#currentDay').text(`Current Time : ${time}`);
 
 function keepTime() {
   let localStoragedata = JSON.parse(localStorage.getItem('schedule'))
-  console.log(localStoragedata)
   if(localStoragedata !== null){
     for(let i = 0; i < localStoragedata.length; i++) {
       let target_textarea = document.getElementById(`hour-${localStoragedata[i].time}`).childNodes[3]
       target_textarea.value = localStoragedata[i].message
-  
     }
   }
 
@@ -25,7 +23,6 @@ function save () {
 
     for(i = 0; i < timeHours.length; i++) {
       let currenttimeBlock = $(`#hour-${timeHours[i]}`)
-      console.log(currentHour)
 
       if(timeHours[i] > currentHour) {
         currenttimeBlock.attr('class', 'row time-block future')
@@ -40,11 +37,8 @@ function save () {
 
       currentBtn.click(function(event) {
         event.preventDefault();
-        console.log(event.target)
         let currenttimeblockText = currenttimeBlock.find('textarea')[0].value
-        console.log(currenttimeblockText)
         let currentIndex = currenttimeBlock.attr('id').split('-')[1]
-        console.log(currentIndex)
 
         let userData = {
           time : currentIndex,
